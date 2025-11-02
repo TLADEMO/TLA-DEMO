@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Protect · TLA – The Landlord App<!--</title-->
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="assets/img/favicon.ico" rel="icon"/>
+<link href="assets/css/style.css" rel="stylesheet"/>
+<script defer="" src="assets/js/main.js"></script>
+</title><style>.map-fallback{border-radius:12px;background:#fff;box-shadow:0 0 0 1px #E6ECF5;padding:12px}
+.mf-title{font-weight:800;margin-bottom:8px}
+.mf-box{height:320px;border-radius:10px;background:repeating-linear-gradient(45deg,#EEF2F7 0,#EEF2F7 8px,#F8FAFC 8px,#F8FAFC 16px);border:1px solid #E2E8F0}
+.mf-caption{margin-top:8px;color:#475569;font-size:12px}</style></head>
+<body>
+<header class="site-header">
+<div class="container header-inner">
+<div class="brand">
+<div class="mark">
+<div class="logo-wrap">
+<svg aria-label="TLA logo" class="tla-logo" viewbox="0 0 900 300">
+<defs><lineargradient id="ug" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FF6A13"></stop><stop offset="1" stop-color="#FF7F2E"></stop></lineargradient></defs>
+<g fill="none" stroke="url(#ug)" stroke-linecap="round" stroke-width="30" transform="translate(70,8) scale(1.14)">
+<path d="M 10 130 L 150 30 L 290 130"></path>
+</g>
+<g fill="#FFFFFF" font-family="Poppins, Arial, sans-serif" font-size="160" font-weight="800">
+<text x="240" y="218.0">T</text>
+<text x="360" y="218.0">L</text>
+<text x="480" y="218.0">A</text>
+</g>
+<g class="logo-underline" fill="none" stroke="url(#ug)" stroke-linecap="round" stroke-width="10">
+<path d="M 240 238 L 640 238"></path>
+</g>
+</svg>
+<div class="strap-wrap">
+<span class="brand-strap" id="brandStrap">THE LANDLORD APP</span>
+<div class="strap-underline"></div>
+</div>
+</div>
+</div>
+</div>
+<nav class="nav">
+<ul class="nav-top">
+<li><a href="vault.html">VAULT</a></li>
+<li><a href="protect.html">PROTECT</a></li>
+<li><a href="tax.html">TAX</a></li>
+<li><a href="mortgages.html">MORTGAGES</a></li>
+<li><a href="partner.html">PARTNER</a></li>
+<li><a href="insights.html">INSIGHTS</a></li>
+</ul>
+<ul class="nav-sub">
+<li>The Landlord Archive</li>
+<li>Tenant Late Again?</li>
+<li>The Ledger Assistant</li>
+<li>The Loan Adviser</li>
+<li>The Letting Agent</li>
+<li>The Landlord Angle</li>
+</ul>
+</nav>
+</div>
+</header>
+<main class="container"><section class="hero">
+<h1>Rent paid on time — even when it isn’t.</h1>
+<p class="lead">Rent &amp; Legal Protection with automated Day‑15 claim packs.</p>
+</section>
+<section class="grid grid-2">
+<div class="card">
+<h2>Court delays by region (illustrative)</h2>
+<img alt="Regional court delay map" onerror="this.outerHTML='&lt;div class=map-fallback&gt;&lt;div class=mf-title&gt;Court Delays Map&lt;/div&gt;&lt;div class=mf-box&gt;&lt;/div&gt;&lt;div class=mf-caption&gt;Illustrative placeholder map. Source: LandlordAdvice 2025.&lt;/div&gt;&lt;/div&gt;'" src="assets/img/eviction-map.png" style="width:100%;border-radius:12px"/>
+<p style="font-size:12px;color:#475569;margin-top:8px">Source: Public domain regional timeframes; read the 2025 guide at LandlordAdvice.co.uk.</p>
+</div>
+<div class="card">
+<h2>Rent arrears calculator</h2>
+<label>Monthly rent (£)</label><br/>
+<input id="rent" type="number" value="1600"/><br/><br/>
+<label>Delay (months)</label><br/>
+<input id="months" step="0.5" type="number" value="8.5"/><br/><br/>
+<label>Legal costs (£)</label><br/>
+<input id="legal" type="number" value="2500"/><br/><br/>
+<div class="kpi"><strong>Rent arrears:</strong> £<span id="arrears">13600</span></div>
+<div class="kpi"><strong>Total exposure:</strong> £<span id="total">16100</span></div>
+</div>
+</section>
+<script>
+(function(){
+  function calc(){
+    var r=+document.getElementById('rent').value||0;
+    var m=+document.getElementById('months').value||0;
+    var l=+document.getElementById('legal').value||0;
+    document.getElementById('arrears').textContent = Math.round(r*m);
+    document.getElementById('total').textContent = Math.round(r*m + l);
+  }
+  ['rent','months','legal'].forEach(function(id){document.getElementById(id).addEventListener('input',calc)});
+  calc();
+})();
+</script>
+</main><footer class="site-footer">
+<div class="container footer-inner">
+<div class="footer-brand">
+<div class="footer-logo"></div>
+<div class="footer-tag">Built by landlords.</div>
+</div>
+<div class="footer-links">
+<a href="protect.html">Protect</a>
+<a href="vault.html">Vault</a>
+<a href="tax.html">Tax</a>
+<a href="mortgages.html">Mortgages</a>
+<a href="insights.html">Insights</a>
+<a href="partner.html">Partner</a>
+<a href="#">Support</a>
+</div>
+<div class="footer-legal">
+      Mortgage advice and broking provided by Mortgage Taylors.
+      © 2025 The Landlord App. All rights reserved.
+    </div>
+</div>
+</footer>
+</body></html>
