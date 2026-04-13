@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TLA Rebuild Preview</title>
+  <style>
+    :root{
+      --navy:#061A2B;
+      --navy2:#0d2b45;
+      --bg:#f4f6f8;
+      --card:#fff;
+      --text:#16212b;
+      --muted:#667281;
+      --line:#d9e1e8;
+      --orange:#F58220;
+      --shadow:0 12px 32px rgba(3,14,28,.12);
+      --radius:24px;
+      --max:1180px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:var(--bg);line-height:1.45}
+    a{text-decoration:none;color:inherit}
+    .container{max-width:var(--max);margin:0 auto;padding:0 24px}
+    .site-header{background:linear-gradient(180deg,var(--navy),#071f34);color:#fff;position:sticky;top:0;z-index:20;box-shadow:0 10px 28px rgba(0,0,0,.18)}
+    .top-lines{display:flex;flex-direction:column;gap:8px;padding-top:10px}.top-lines span{display:block;height:3px;background:#fff;opacity:.95}
+    .brand-bar{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding:14px 0 18px;flex-wrap:wrap}
+    .brand-logo{height:82px;width:auto;display:block}
+    .navlinks{display:flex;gap:22px;flex-wrap:wrap}.navlinks a{color:#dce9f6;font-weight:600;font-size:15px;padding-bottom:3px;opacity:.92}.navlinks a.active,.navlinks a:hover{color:#fff;text-decoration:underline;text-decoration-color:var(--orange);text-underline-offset:6px;text-decoration-thickness:2px}
+    .hero{background:radial-gradient(circle at top right, rgba(245,130,32,.18), transparent 28%), linear-gradient(180deg,var(--navy2),var(--navy));color:#fff;padding:52px 0 54px}
+    .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:start}
+    .hero-card,.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .hero-copy{padding:14px 0 0}.kicker{display:inline-flex;align-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#eff6fd;border-radius:999px;padding:8px 12px;font-size:13px;font-weight:700}
+    h1,h2,h3{line-height:1.05;margin:0 0 14px} h1{font-size:56px;letter-spacing:-1.6px} h2{font-size:38px;letter-spacing:-1px} h3{font-size:24px;letter-spacing:-.4px}
+    .hero-copy p,.lede{font-size:19px;color:#dbe8f6;max-width:720px}
+    .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 20px;border-radius:16px;font-weight:700;border:1px solid transparent;cursor:pointer}
+    .btn-primary{background:var(--orange);color:#fff}.btn-secondary{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.16)}
+    .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}.stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:16px}.stat strong{display:block;font-size:28px}.stat span{display:block;color:#dce8f5;font-size:13px;margin-top:4px}
+    .calc-card{padding:22px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field label{display:block;font-weight:700;font-size:14px;margin:0 0 8px}.input{width:100%;height:52px;border-radius:16px;border:1px solid var(--line);padding:0 16px;font:inherit;color:var(--text);background:#fff}
+    .helper{font-size:13px;color:var(--muted);margin-top:10px}.result-stack{display:grid;gap:12px;margin-top:18px}.result-box,.result-mini{background:#f8fafb;border:1px solid var(--line);border-radius:18px;padding:16px}.result-box strong{display:block;font-size:38px;line-height:1}.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.result-mini .label{font-size:13px;color:var(--muted);margin-bottom:6px}.result-mini .value{font-size:24px;font-weight:800}
+    .section{padding:48px 0}.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{padding:22px}.card p{color:var(--muted);margin:0}.list{padding-left:20px;margin:10px 0 0}.list li{margin:7px 0}.band{background:linear-gradient(180deg,#fff,#f8fafb);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.compare{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px}
+    .footer{background:var(--navy);color:#dce8f5;padding:26px 0 34px;margin-top:28px}.mini{font-size:13px;color:#c3d3e5}.page-hero{background:linear-gradient(180deg,var(--navy2),var(--navy));color:#fff;padding:38px 0 34px}.page-hero p{color:#dce8f5;max-width:760px;font-size:18px}
+    .faq details{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin-bottom:12px;box-shadow:var(--shadow)}.faq summary{cursor:pointer;font-weight:700}.note{font-size:13px;color:var(--muted)}.ribbon{display:inline-block;background:#fff3e8;color:#a45211;border:1px solid #ffd1a6;padding:8px 12px;border-radius:999px;font-size:13px;font-weight:700}
+    .page{display:none}.page.active{display:block}
+    @media (max-width:980px){.hero-grid,.compare,.grid-3,.result-grid,.form-grid{grid-template-columns:1fr}h1{font-size:42px}h2{font-size:30px}.brand-bar{align-items:flex-start;flex-direction:column}.navlinks{gap:16px}}
+    @media (max-width:640px){.container{padding:0 16px}.brand-logo{height:68px}.hero{padding-top:36px}h1{font-size:36px}.hero-copy p,.lede,.page-hero p{font-size:17px}.stat-row{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="top-lines"><span></span><span></span><span></span></div>
+    <div class="container brand-bar">
+      <a href="#home" onclick="showPage('home')" aria-label="TLA home">
+        <svg class="brand-logo" viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="420" height="180" fill="#061A2B"/>
+          <path d="M56 74 L210 36 L364 74" stroke="#F58220" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M82 86 L82 130" stroke="#F58220" stroke-width="8"/>
+          <path d="M338 86 L338 130" stroke="#F58220" stroke-width="8"/>
+          <path d="M72 140 L348 140" stroke="#F58220" stroke-width="8"/>
+          <text x="210" y="104" text-anchor="middle" fill="#F3F4F6" font-family="Arial, Helvetica, sans-serif" font-size="62" font-weight="700" letter-spacing="2">TLA</text>
+          <text x="210" y="127" text-anchor="middle" fill="#F3F4F6" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="1.8">THE LANDLORD APP</text>
+        </svg>
+      </a>
+      <nav class="navlinks">
+        <a href="#home" id="nav-home" class="active" onclick="showPage('home')">Home</a>
+        <a href="#insights" id="nav-insights" onclick="showPage('insights')">Insights</a>
+        <a href="#protect" id="nav-protect" onclick="showPage('protect')">Protect</a>
+        <a href="#vault" id="nav-vault" onclick="showPage('vault')">Vault</a>
+        <a href="#mortgages" id="nav-mortgages" onclick="showPage('mortgages')">Mortgages</a>
+        <a href="#partner" id="nav-partner" onclick="showPage('partner')">Partner</a>
+        <a href="#tax" id="nav-tax" onclick="showPage('tax')">Tax</a>
+        <a href="#why" id="nav-why" onclick="showPage('why')">Why TLA</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="page-home" class="page active">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <div class="kicker">Landlord-first protection</div>
+            <h1>Understand the potential cost of a tenancy going wrong.</h1>
+            <p>TLA helps landlords understand their exposure, reduce financial risk and stay claim ready from day one.</p>
+            <div class="cta-row">
+              <a class="btn btn-primary" href="#insights" onclick="showPage('insights')">Check my risk</a>
+              <a class="btn btn-secondary" href="#protect" onclick="showPage('protect')">View cover options</a>
+            </div>
+            <div class="stat-row">
+              <div class="stat"><strong>Day 15</strong><span>Gentle claim reminder</span></div>
+              <div class="stat"><strong>99%</strong><span>Target paid claims position</span></div>
+              <div class="stat"><strong>£30</strong><span>Setup fee example</span></div>
+            </div>
+          </div>
+          <div class="hero-card calc-card" data-calculator>
+            <h3>Exposure calculator</h3>
+            <p class="helper">Use postcode, rent and timing assumptions to estimate the financial impact of a failed tenancy.</p>
+            <div class="form-grid">
+              <div class="field"><label>Property postcode</label><input class="input" name="postcode" value="SW11"></div>
+              <div class="field"><label>Monthly rent (£)</label><input class="input" name="rent" type="number" value="1600"></div>
+              <div class="field"><label>Legal costs (£)</label><input class="input" name="legal" type="number" value="2500"></div>
+              <div class="field"><label>Possession &amp; judgement lag (months)</label><input class="input" name="lag" type="number" value="2.5" step="0.1"></div>
+            </div>
+            <div class="helper">Regional timeline: <strong data-region>London — 8.5 months</strong></div>
+            <div class="result-stack">
+              <div class="result-box"><div class="helper">Estimated total exposure</div><strong data-total-exposure>£20,100</strong><div class="helper">Includes lost rent, legal costs, one month void and a tenant damage assumption.</div></div>
+              <div class="result-grid">
+                <div class="result-mini"><div class="label">Total delay</div><div class="value" data-total-delay>11.0 months</div></div>
+                <div class="result-mini"><div class="label">Lost rent</div><div class="value" data-lost-rent>£17,600</div></div>
+                <div class="result-mini"><div class="label">Estimated TLA cover</div><div class="value" data-cover>£22,700</div></div>
+                <div class="result-mini"><div class="label">Estimated monthly cost</div><div class="value" data-price>£64/mo</div></div>
+              </div>
+              <div class="result-box"><div class="helper">Estimated remaining exposure after cover</div><strong data-remaining>£1,900</strong></div>
+            </div>
+            <div class="cta-row"><a class="btn btn-primary" href="#protect" onclick="showPage('protect')">Protect this property</a></div>
+          </div>
+        </div>
+      </section>
+      <section class="section"><div class="container"><div class="grid-3"><div class="card"><h3>Quietly commercial</h3><p>You protect the property. It makes sense to protect the income too.</p></div><div class="card"><h3>Claim ready from day one</h3><p>Approved references, declarations and structured records help reduce claim friction later.</p></div><div class="card"><h3>Gentle reminders</h3><p>Monthly Day 15 prompts help landlords act in time without feeling sold to.</p></div></div></div></section>
+      <section class="section band"><div class="container compare"><div class="card"><span class="ribbon">Without TLA</span><h3>Potential exposure</h3><ul class="list"><li>Missed rent builds quickly while the court process runs.</li><li>Legal costs and voids can add to the pressure.</li><li>Damage at the end of a bad tenancy rarely helps cashflow.</li></ul></div><div class="card"><span class="ribbon">With TLA</span><h3>Designed to reduce the impact</h3><ul class="list"><li>Rent support tied to your monthly rent profile.</li><li>Legal costs built into the protection journey.</li><li>Re-letting support for up to 3 months.</li><li>Damage contribution up to £1,000.</li></ul></div></div></section>
+    </section>
+
+    <section id="page-insights" class="page">
+      <section class="page-hero"><div class="container"><h1>Insights for landlords</h1><p>Regional court timelines, cashflow pressure and claims readiness all matter more now than they used to.</p></div></section>
+      <section class="section"><div class="container compare"><div class="card"><h2>Regional court delays</h2><p class="note">Illustrative preview using postcode mapping logic in the included JSON file.</p><table class="table"><thead><tr><th>Region</th><th>Example timeline</th></tr></thead><tbody><tr><td>London</td><td>8.5 months</td></tr><tr><td>West Midlands</td><td>5.5 months</td></tr><tr><td>North West</td><td>6.0 months</td></tr><tr><td>South West</td><td>4.5 months</td></tr><tr><td>Wales</td><td>2.0 months</td></tr></tbody></table></div><div class="card calc-card" data-calculator><h2>Calculate your exposure</h2><div class="form-grid"><div class="field"><label>Postcode</label><input class="input" name="postcode" value="SW11"></div><div class="field"><label>Monthly rent (£)</label><input class="input" name="rent" type="number" value="1600"></div><div class="field"><label>Legal costs (£)</label><input class="input" name="legal" type="number" value="2500"></div><div class="field"><label>Possession &amp; judgement lag (months)</label><input class="input" name="lag" type="number" value="2.5" step="0.1"></div></div><div class="helper">Region: <strong data-region>London — 8.5 months</strong></div><div class="result-stack"><div class="result-mini"><div class="label">Total delay</div><div class="value" data-total-delay>11.0 months</div></div><div class="result-mini"><div class="label">Rent arrears</div><div class="value" data-lost-rent>£17,600</div></div><div class="result-mini"><div class="label">Total exposure</div><div class="value" data-total-exposure>£20,100</div></div><div class="result-mini"><div class="label">Estimated TLA cover</div><div class="value" data-cover>£22,700</div></div><div class="result-mini"><div class="label">Remaining exposure</div><div class="value" data-remaining>£1,900</div></div><div class="result-mini"><div class="label">Estimated monthly cost</div><div class="value" data-price>£64/mo</div></div></div><div class="cta-row"><a class="btn btn-primary" href="#protect" onclick="showPage('protect')">See cover details</a></div></div></div></section>
+    </section>
+
+    <section id="page-protect" class="page">
+      <section class="page-hero"><div class="container"><h1>Protection built around claims</h1><p>Simple to understand, structured to support cleaner claims and calmer landlord decision making.</p></div></section>
+      <section class="section"><div class="container grid-3"><div class="card"><h3>Rent support</h3><p>Modelled around monthly rent and the likely possession timeline in your area.</p></div><div class="card"><h3>Legal costs</h3><p>Legal expenses are built into the protection narrative so the calculator reflects real exposure.</p></div><div class="card"><h3>Re-letting &amp; damage</h3><p>Includes up to 3 months unable to re-let support and up to £1,000 towards tenant damage.</p></div></div></section>
+      <section class="section band"><div class="container faq"><details open><summary>When should a claim be submitted?</summary><p>Day 15 is the intended reminder point so the process can move promptly and calmly.</p></details><details><summary>Why does TLA focus on claim readiness?</summary><p>Because clean references, accurate declarations and timely submission all help reduce friction later.</p></details><details><summary>What if I never make a claim?</summary><p>That is the ideal outcome. It means the tenancy has run smoothly and the protection was there if needed.</p></details></div></section>
+    </section>
+
+    <section id="page-vault" class="page"><section class="page-hero"><div class="container"><h1>Vault</h1><p>A placeholder page for secure document storage, tenancy records and future claim support workflows.</p></div></section><section class="section"><div class="container"><div class="card"><h2>Future direction</h2><p>Store tenancy documents, support claim packs and prepare for automation later.</p></div></div></section></section>
+    <section id="page-mortgages" class="page"><section class="page-hero"><div class="container"><h1>Mortgages</h1><p>Many landlords can absorb short-term issues. Most would still prefer not to carry the risk themselves.</p></div></section><section class="section"><div class="container"><div class="card"><h2>Why this matters</h2><p>Most buy to let portfolios are built around predictable rent. Even a short interruption can distort the picture.</p></div></div></section></section>
+    <section id="page-partner" class="page"><section class="page-hero"><div class="container"><h1>Partner</h1><p>A cleaner route for partner channels, agents and introducers who want a more controlled landlord journey.</p></div></section><section class="section"><div class="container grid-3"><div class="card"><h3>Simple distribution</h3><p>Static quote journey suitable for partner-led testing and review.</p></div><div class="card"><h3>Commercial flexibility</h3><p>Commission logic can sit behind the scenes while the front end stays clean.</p></div><div class="card"><h3>Renewal potential</h3><p>Partner books can become a strong recurring income engine if renewal journeys are slick.</p></div></div></section></section>
+    <section id="page-tax" class="page"><section class="page-hero"><div class="container"><h1>Tax</h1><p>A placeholder page for future tax guidance, cost categorisation and landlord planning tools.</p></div></section><section class="section"><div class="container"><div class="card"><h2>Planned content</h2><p>Tax content can sit alongside protection and mortgages without overwhelming the core proposition.</p></div></div></section></section>
+    <section id="page-why" class="page"><section class="page-hero"><div class="container"><h1>Why TLA</h1><p>Because landlords want clarity, not a hard sell. The point is to understand the exposure and reduce it sensibly.</p></div></section><section class="section"><div class="container grid-3"><div class="card"><h3>Measured tone</h3><p>Advice-led, factual and calm rather than loud or fear-based.</p></div><div class="card"><h3>Commercially clear</h3><p>Exposure, cover and price all sit in one place so the decision feels sensible.</p></div><div class="card"><h3>Ready to iterate</h3><p>This rebuild is intentionally easy to save locally and play with.</p></div></div></section></section>
+  </main>
+
+  <footer class="footer"><div class="container"><div class="mini">TLA rebuild preview. Save this as a single HTML file and play locally.</div></div></footer>
+
+  <script>
+    const courtData = {
+      SW:{region:'London',months:8.5},SE:{region:'London',months:8.5},NW:{region:'London',months:8.5},EC:{region:'London',months:8.5},WC:{region:'London',months:8.5},W:{region:'London',months:8.5},N:{region:'London',months:8.5},E:{region:'London',months:8.5},
+      B:{region:'West Midlands',months:5.5},CV:{region:'West Midlands',months:5.5},M:{region:'North West',months:6.0},L:{region:'North West',months:6.0},BS:{region:'South West',months:4.5},BA:{region:'South West',months:4.5},EX:{region:'South West',months:4.5},
+      CF:{region:'Wales',months:2.0},SA:{region:'Wales',months:2.0},NP:{region:'Wales',months:2.0},NG:{region:'East Midlands',months:4.5},LE:{region:'East Midlands',months:4.5},YO:{region:'Yorkshire & The Humber',months:5.0},LS:{region:'Yorkshire & The Humber',months:5.0},NE:{region:'North East',months:4.5}
+    };
+    function getPrefix(p){const c=(p||'').trim().toUpperCase().replace(/\s+/g,''); if(!c) return ''; const two=c.slice(0,2), one=c.slice(0,1); return ['EC','WC','NW','SW','SE','NE','NG','LE','CV','BS','BA','EX','CF','SA','NP','YO','LS'].includes(two)?two:one;}
+    function money(n){return new Intl.NumberFormat('en-GB',{style:'currency',currency:'GBP',maximumFractionDigits:0}).format(n||0)}
+    function monthlyPrice(r){r=Number(r||0); if(r<=0) return 0; if(r<1000) return Math.round(r*0.04); if(r<1800) return Math.round(r*0.035); return Math.round(r*0.03)}
+    function calcExposure({rent,legal,lag,court}){const totalDelay=Number(lag||0)+Number(court||0); const lostRent=Number(rent||0)*totalDelay; const voidLoss=Number(rent||0); const damage=Math.max(1000,Math.round((Number(rent||0)*12)*0.10)); const totalExposure=lostRent+Number(legal||0)+voidLoss+damage; return {totalDelay,lostRent,voidLoss,damage,totalExposure};}
+    function calcCover({rent,legal,exposure}){const rentCover=exposure.lostRent, legalCover=Number(legal||0), relettingCover=Math.min(Number(rent||0)*3,exposure.voidLoss), damageCover=Math.min(1000,exposure.damage), totalCover=rentCover+legalCover+relettingCover+damageCover, remaining=Math.max(0, exposure.totalExposure-totalCover); return {totalCover,remaining};}
+    function updateCalculator(form){
+      const postcodeEl=form.querySelector('[name=postcode]'); const rentEl=form.querySelector('[name=rent]'); const legalEl=form.querySelector('[name=legal]'); const lagEl=form.querySelector('[name=lag]');
+      const regionEl=form.querySelector('[data-region]'); const delayEl=form.querySelector('[data-total-delay]'); const lostRentEl=form.querySelector('[data-lost-rent]'); const exposureEl=form.querySelector('[data-total-exposure]'); const coverEl=form.querySelector('[data-cover]'); const remainEl=form.querySelector('[data-remaining]'); const priceEl=form.querySelector('[data-price]');
+      const prefix=getPrefix(postcodeEl.value); const court=courtData[prefix] || {region:'Average regional timeline',months:5}; const rent=Number(rentEl.value||0), legal=Number(legalEl.value||0), lag=Number(lagEl.value||0);
+      const exposure=calcExposure({rent,legal,lag,court:court.months}); const cover=calcCover({rent,legal,exposure});
+      if(regionEl) regionEl.textContent=`${court.region} — ${court.months} months`; if(delayEl) delayEl.textContent=`${exposure.totalDelay.toFixed(1)} months`; if(lostRentEl) lostRentEl.textContent=money(exposure.lostRent); if(exposureEl) exposureEl.textContent=money(exposure.totalExposure); if(coverEl) coverEl.textContent=money(cover.totalCover); if(remainEl) remainEl.textContent=money(cover.remaining); if(priceEl) priceEl.textContent=money(monthlyPrice(rent)) + '/mo';
+    }
+    document.querySelectorAll('[data-calculator]').forEach(form => { ['input','change'].forEach(evt => form.addEventListener(evt, () => updateCalculator(form))); updateCalculator(form); });
+    function showPage(name){
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page-' + name).classList.add('active');
+      document.querySelectorAll('.navlinks a').forEach(a => a.classList.remove('active'));
+      const activeLink = document.getElementById('nav-' + name);
+      if(activeLink) activeLink.classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+  </script>
+</body>
+</html>
